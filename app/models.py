@@ -11,6 +11,6 @@ def create_tables():
 
 class Todo(Base):
     __tablename__ = "todo"
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, index=True)
     message = Column(String(255), nullable=False)
     status = Column(Boolean,default=False)

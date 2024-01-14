@@ -79,6 +79,7 @@ def delete_Todo(todo_id: int):
     raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail="Todo not found")
 
 
+
 # @app.get("/",status_code=200)
 # def getCar_Info():
 #     return {"message":"server is running"}
