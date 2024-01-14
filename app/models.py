@@ -9,9 +9,8 @@ def create_tables():
     Base.metadata.create_all(engine)
 
 
-class Person(Base):
-    __tablename__ = "person"
+class Todo(Base):
+    __tablename__ = "todo"
     id = Column(Integer, primary_key=True)
-    firstname = Column(String(50), nullable=False)
-    lastname = Column(String(50), nullable=False)
-    isMale = Column(Boolean)
+    message = Column(String(255), nullable=False)
+    status = Column(Boolean,default=False)

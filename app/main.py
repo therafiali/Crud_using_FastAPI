@@ -9,90 +9,85 @@ db = SessionLocal()
 
 
 class OurBaseModel(BaseModel):
+    # class Config:
+    #     orm_mode = True
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
-class Person(OurBaseModel):
+class Todo(OurBaseModel):
     id: int
-    firstname: str
-    lastname: str
-    isMale: bool
+    message: str  
+    status: bool
 
 
-@app.get('/', response_model=list[Person], status_code=status.HTTP_200_OK)
-def getAll_Person(person: Person):
-    # Get all persons from the database
-    getAllPerson = db.query(models.Person).all()
-    return getAllPerson
+@app.get('/', response_model=list[Todo], status_code=status.HTTP_200_OK)
+def getAll_Todo():
+    # Get all Todos from the database
+    getAllTodo = db.query(models.Todo).all()
+    return getAllTodo
 
 
-@app.get('/getbyid/{person_id}', response_model=Person, status_code=status.HTTP_200_OK)
-def get_Single_Person(person_id: int):
-    # Get a single person from the database by their ID
-    get_persons = db.query(models.Person).filter(
-        models.Person.id == person_id).first()
-    if get_persons is not None:
-        return get_persons
-    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                        detail="Person not found")
+@app.get('/getbyid/{todo_id}', response_model=Todo, status_code=status.HTTP_200_OK)
+def get_Single_Todo(todo_id: int):
+    # Get a single Todo from the database by their ID
+    get_Todos = db.query(models.Todo).filter(
+        models.Todo.id == todo_id).first()
+    if get_Todos is not None:
+        return get_Todos
+    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail="Todo not found")
 
 
-@app.post('/addperson', response_model=Person, status_code=status.HTTP_201_CREATED)
-def addPerson(person: Person):
-    # Add a new person to the database
-    newPerson = models.Person(id=person.id, firstname=person.firstname,
-                              lastname=person.lastname, isMale=person.isMale)
-    addPerson = db.query(models.Person).filter(
-        models.Person.id == person.id).first()
-    if addPerson is not None:
+@app.post('/addTodo', response_model=Todo, status_code=status.HTTP_201_CREATED)
+def addTodo(todo: Todo):
+    # Add a new Todo to the database
+    newTodo = models.Todo(id=todo.id, message=todo.message,status=todo.status)
+    addTodo = db.query(models.Todo).filter(
+        models.Todo.id == todo.id).first()
+    if addTodo is not None:
         raise HTTPException(
-            status_code=status.HTTP_406_NOT_ACCEPTABLE, detail="Person already exists")
-    db.add(newPerson)
+            status_code=status.HTTP_406_NOT_ACCEPTABLE, detail="Todo already exists")
+    db.add(newTodo)
     db.commit()
 
-    return newPerson
+    return newTodo
 
 
-@app.put('/update_person/{person_id}', response_model=Person, status_code=status.HTTP_202_ACCEPTED)
-def update_person(person_id: int, person: Person):
-    # Update a person's details in the database
-    find_person = db.query(models.Person).filter(
-        models.Person.id == person_id).first()
-    if find_person is not None:
-        find_person.id = person.id
-        find_person.firstname = person.firstname
-        find_person.lastname = person.lastname
-        find_person.isMale = person.isMale
+@app.put('/update_todo/{todo_id}', response_model=Todo, status_code=status.HTTP_202_ACCEPTED)
+def update_Todo(todo_id:int, todo: Todo):
+    # Update a Todo's details in the database
+    find_Todo = db.query(models.Todo).filter(models.Todo.id == todo_id).first()
+    if find_Todo is not None:
+        find_Todo.id = todo.id
+        find_Todo.message = todo.message
+        find_Todo.status = todo.status
 
         db.commit()
-        return find_person
-    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                        detail="Person not found")
+        return find_Todo
+    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail="Todo not found")
 
 
-@app.delete('/delete_person/{person_id}', response_model=Person, status_code=200)
-def delete_person(person_id: int):
-    # Delete a person from the database
-    find_person = db.query(models.Person).filter(
-        models.Person.id == person_id).first()
-    if find_person is not None:
-        db.delete(find_person)
+@app.delete('/delete_todo/{todo_id}', response_model=Todo, status_code=200)
+def delete_Todo(todo_id: int):
+    # Delete a Todo from the database
+    find_Todo = db.query(models.Todo).filter(
+        models.Todo.id == todo_id).first()
+    if find_Todo is not None:
+        db.delete(find_Todo)
         db.commit()
-        return find_person
-    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                        detail="Person not found")
+        return find_Todo
+    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail="Todo not found")
 
 
 # @app.get("/",status_code=200)
 # def getCar_Info():
 #     return {"message":"server is running"}
 
-# @app.post("/addpersoninfi",status_code=200)
-# def addPersonInfo(person:Person):
+# @app.post("/addTodoinfi",status_code=200)
+# def addTodoInfo(Todo:Todo):
 #     return {
-#         "id" : person.id,
-#         "firstname" : person.firstname,
-#         "lastname" : person.lastname,
-#         "isMale" : person.isMale
+#         "id" : Todo.id,
+#         "firstname" : Todo.firstname,
+#         "lastname" : Todo.lastname,
+#         "isMale" : Todo.isMale
 #     }

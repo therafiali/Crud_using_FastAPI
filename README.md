@@ -6,7 +6,7 @@ This is a simple Appliction using Restful with FastAPI, PostgreSQL and SqlAlchem
 
 ### `model.py`
 
-This file contains the SQLAlchemy model for a `Person` and a function `create_tables()` to create all tables in the database.
+This file contains the SQLAlchemy model for a `Todo` and a function `create_tables()` to create all tables in the database.
 
 ### `create_db.py`
 
@@ -18,15 +18,15 @@ This file sets up the SQLAlchemy engine, base class for SQLAlchemy models, and t
 
 ### `main.py`
 
-This file contains the FastAPI application and all its routes. It uses the `Person` model from the `models` module and the session factory from the `database` module to interact with the database.
+This file contains the FastAPI application and all its routes. It uses the `Todo` model from the `models` module and the session factory from the `database` module to interact with the database.
 
 ## API Endpoints
 
-- `GET /`: Returns a list of all persons in the database.
-- `GET /getbyid/{person_id}`: Returns a single person from the database by their ID.
-- `POST /addperson`: Adds a new person to the database.
-- `PUT /update_person/{person_id}`: Updates a person's details in the database.
-- `DELETE /delete_person/{person_id}`: Deletes a person from the database.
+- `GET /`: Returns a list of all Todos in the database.
+- `GET /getbyid/{Todo_id}`: Returns a single Todo from the database by their ID.
+- `POST /addTodo`: Adds a new Todo to the database.
+- `PUT /update_Todo/{Todo_id}`: Updates a Todo's details in the database.
+- `DELETE /delete_Todo/{Todo_id}`: Deletes a Todo from the database.
 
 ## How to Run
 
