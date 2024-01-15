@@ -3,7 +3,7 @@ from streamlit_js_eval import streamlit_js_eval
 import streamlit as st
 import requests
 import json
-from func import get_all_todos
+import func
 
 # Define the base URL for the API
 BASE_URL = "http://127.0.0.1:8000"
@@ -34,7 +34,7 @@ def createtodo():
             st.success("Added Todo Successfully")  # Display success message
 
 # Get all todos from the API
-app_string = get_all_todos()
+app_string = func.get_all_todos()  # Get all todos from the API
 app = json.loads(app_string)  # Convert string to JSON
 max_id = app[0]['id']  # Get the ID of the first todo
 for item in app:  # For each todo in the list

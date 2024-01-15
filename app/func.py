@@ -1,9 +1,8 @@
 import requests
 import json
 
-from app.streamlit_client import BASE_URL
 
-BASE_URL
+BASE_URL = "http://127.0.0.1:8000"
 
 # Function to get all todos from the API
 def get_all_todos():
