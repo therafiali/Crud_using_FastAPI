@@ -99,7 +99,7 @@ def show_todo():
                 unsafe_allow_html=True)
     st.markdown("## _______Here is yours Todos List________")  # Set the title of the section
     table_content = ""  # Initialize the table content
-    for i, item in enumerate(app):  # For each todo in the list
+    for i, item in enumerate(getid):  # For each todo in the list
         # Add a row to the table content
         table_content += f"<tr><td style='border:1px solid black; padding:10px;'>{item['id']}</td><td style='border:1px solid black; padding:10px;'>{item['message']}</td><td style='border:1px solid black; padding:10px;'>{item['status']}</td></tr>"
 
