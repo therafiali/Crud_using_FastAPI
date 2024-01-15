@@ -109,9 +109,9 @@ def show_todo():
     
 # Get all todos from the API
 app_string = show_todo() # Get all todos from the API
-app = json.loads(app_string)  # Convert string to JSON
-max_id = app[0]['id']  # Get the ID of the first todo
-for item in app:  # For each todo in the list
+getid = json.loads(app_string)  # Convert string to JSON
+max_id = getid[0]['id']  # Get the ID of the first todo
+for item in getid:  # For each todo in the list
     current_id = item['id']  # Get the ID of the current todo
     if current_id > max_id:  # If the current ID is greater than the max ID
         max_id = current_id  # Update the max ID
