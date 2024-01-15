@@ -30,7 +30,7 @@ This file contains the FastAPI application and all its routes. It uses the `Todo
 
 ## How to Run
 
-1. Install all dependencies.
+1. Install all dependencies from `requirements.txt` file.
 2. Run `python create_db.py` to create all tables in the database.
 3. Run `unicorn main:app --reload` to start the FastAPI application.
 4. Run `streamlit run streamlit_client.py` to start the Streamlit application.
