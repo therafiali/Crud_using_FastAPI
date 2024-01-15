@@ -34,3 +34,9 @@ This file contains the FastAPI application and all its routes. It uses the `Todo
 2. Run `python create_db.py` to create all tables in the database.
 3. Run `unicorn main:app --reload` to start the FastAPI application.
 4. Run `streamlit run streamlit_client.py` to start the Streamlit application.
+
+
+
+<a href="https://www.linkedin.com/in/therafiali/"><img  alt="LinkedIn" title="LinkedIn" src="https://img.shields.io/badge/LinkedIn-0b5fbb?style=for-the-badge&logo=linkedin&logoColor=white"/></a>
+### [Directly Contact with me on email](mailto:therafiali@gmial.com)
+- therafiali@gmail.com
