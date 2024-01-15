@@ -119,7 +119,6 @@ def show_todo():
 
 # Run the Streamlit app
 if __name__ == "__main__":
-    get_all_todos()
     delete_todo()
     update_todo()
     show_todo()
