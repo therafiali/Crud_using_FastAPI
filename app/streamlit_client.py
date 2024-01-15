@@ -33,16 +33,7 @@ def createtodo():
             streamlit_js_eval(js_expressions="parent.window.location.reload()")  # Reload the page
             st.success("Added Todo Successfully")  # Display success message
 
-# Get all todos from the API
-app_string = func.get_all_todos()  # Get all todos from the API
-app = json.loads(app_string)  # Convert string to JSON
-max_id = app[0]['id']  # Get the ID of the first todo
-for item in app:  # For each todo in the list
-    current_id = item['id']  # Get the ID of the current todo
-    if current_id > max_id:  # If the current ID is greater than the max ID
-        max_id = current_id  # Update the max ID
 
-new_id = max_id + 1  # Calculate the ID for the new todo
 
 # Create a new todo
 new = createtodo()
@@ -115,6 +106,17 @@ def show_todo():
     # Display the table
     st.markdown(
         f"<table style='background-color:#D4F1F4; border:1px solid black; border-collapse: collapse; width:100%;'><tr><th>ID</th><th>Todo Message</th><th>Status</th></tr>{table_content}</table>", unsafe_allow_html=True)
+    
+# Get all todos from the API
+app_string = show_todo() # Get all todos from the API
+app = json.loads(app_string)  # Convert string to JSON
+max_id = app[0]['id']  # Get the ID of the first todo
+for item in app:  # For each todo in the list
+    current_id = item['id']  # Get the ID of the current todo
+    if current_id > max_id:  # If the current ID is greater than the max ID
+        max_id = current_id  # Update the max ID
+
+new_id = max_id + 1  # Calculate the ID for the new todo    
 
 
 # Run the Streamlit app
