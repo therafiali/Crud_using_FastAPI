@@ -23,21 +23,22 @@ def get_all_todos():
 
 st.title("Todo App")
 
+
+
 def createtodo():
     """create todo"""
     st.markdown("### Create Todo")
     title = st.text_input("Enter New Todo",placeholder="Read Book before Sleep")
     convert_str = str(title)
-    # print("title_____________________________________",title,"_______________________",convert_str)
-    if title:  # This will be True when the user enters some text
-        response = requests.post(
-            f"{BASE_URL}/addTodo", json={"id": new_id, "message": convert_str, "status": False})
-        res_json = response.json()
-        res_str = json.dumps(res_json)
-        return "Todos Added Succesfully"
     if st.button("Add Todo"):
-        streamlit_js_eval(js_expressions="parent.window.location.reload()")
-
+        if title:  # This will be True when the user enters some text
+            response = requests.post(
+                f"{BASE_URL}/addTodo", json={"id": new_id, "message": convert_str, "status": False})
+            
+            res_json = response.json()
+            res_str = json.dumps(res_json)
+            streamlit_js_eval(js_expressions="parent.window.location.reload()")
+            return "Added Todo Successfully"
 
 app_string = get_all_todos()
 app = json.loads(app_string)
