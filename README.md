@@ -36,7 +36,7 @@ This file contains the FastAPI application and all its routes. It uses the `Todo
 4. Run `streamlit run streamlit_client.py` to start the Streamlit application.
 
 
-
+### Connect with me
 <a href="https://www.linkedin.com/in/therafiali/"><img  alt="LinkedIn" title="LinkedIn" src="https://img.shields.io/badge/LinkedIn-0b5fbb?style=for-the-badge&logo=linkedin&logoColor=white"/></a>
 ### [Directly Contact with me on email](mailto:therafiali@gmial.com)
 - therafiali@gmail.com
