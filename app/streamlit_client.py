@@ -3,11 +3,17 @@ from streamlit_js_eval import streamlit_js_eval
 import streamlit as st
 import requests
 import json
-import func
 
 # Define the base URL for the API
 BASE_URL = "http://127.0.0.1:8000"
 
+# Function to get all todos from the API
+def get_all_todos():
+    """Get List of all Todos"""
+    response = requests.get('http://127.0.0.1:8000/')  # Send GET request to API
+    res_json = response.json()  # Convert response to JSON
+    res_str = json.dumps(res_json)  # Convert JSON to string
+    return res_str  # Return string
 
 # Set the title of the Streamlit app
 st.title("Todo App")
@@ -33,7 +39,16 @@ def createtodo():
             streamlit_js_eval(js_expressions="parent.window.location.reload()")  # Reload the page
             st.success("Added Todo Successfully")  # Display success message
 
+# Get all todos from the API
+app_string = get_all_todos()
+app = json.loads(app_string)  # Convert string to JSON
+max_id = app[0]['id']  # Get the ID of the first todo
+for item in app:  # For each todo in the list
+    current_id = item['id']  # Get the ID of the current todo
+    if current_id > max_id:  # If the current ID is greater than the max ID
+        max_id = current_id  # Update the max ID
 
+new_id = max_id + 1  # Calculate the ID for the new todo
 
 # Create a new todo
 new = createtodo()
@@ -99,24 +114,13 @@ def show_todo():
                 unsafe_allow_html=True)
     st.markdown("## _______Here is yours Todos List________")  # Set the title of the section
     table_content = ""  # Initialize the table content
-    for i, item in enumerate(getid):  # For each todo in the list
+    for i, item in enumerate(app):  # For each todo in the list
         # Add a row to the table content
         table_content += f"<tr><td style='border:1px solid black; padding:10px;'>{item['id']}</td><td style='border:1px solid black; padding:10px;'>{item['message']}</td><td style='border:1px solid black; padding:10px;'>{item['status']}</td></tr>"
 
     # Display the table
     st.markdown(
         f"<table style='background-color:#D4F1F4; border:1px solid black; border-collapse: collapse; width:100%;'><tr><th>ID</th><th>Todo Message</th><th>Status</th></tr>{table_content}</table>", unsafe_allow_html=True)
-    
-# Get all todos from the API
-app_string = show_todo() # Get all todos from the API
-getid = json.loads(app_string)  # Convert string to JSON
-max_id = getid[0]['id']  # Get the ID of the first todo
-for item in getid:  # For each todo in the list
-    current_id = item['id']  # Get the ID of the current todo
-    if current_id > max_id:  # If the current ID is greater than the max ID
-        max_id = current_id  # Update the max ID
-
-new_id = max_id + 1  # Calculate the ID for the new todo    
 
 
 # Run the Streamlit app
