@@ -4,4 +4,3 @@ pydantic
 fastapi
 streamlit_js_eval
 requests
-json
