@@ -23,10 +23,10 @@ def get_all_todos():
 
 st.title("Todo App")
 
-
-
+        
 def createtodo():
     """create todo"""
+    st.markdown("<div style='background-color: #097969; padding: 10px; border-radius: 10px;'>", unsafe_allow_html=True)
     st.markdown("### Create Todo")
     title = st.text_input("Enter New Todo",placeholder="Read Book before Sleep")
     convert_str = str(title)
@@ -38,7 +38,9 @@ def createtodo():
             res_json = response.json()
             res_str = json.dumps(res_json)
             streamlit_js_eval(js_expressions="parent.window.location.reload()")
-            return "Added Todo Successfully"
+            st.success("Added Todo Successfully")
+        
+        
 
 app_string = get_all_todos()
 app = json.loads(app_string)
@@ -57,66 +59,61 @@ if new:
     
 
 def delete_todo():
+    st.markdown("<div style='background-color: #C41E3A; padding: 10px; border-radius: 10px;'>", unsafe_allow_html=True)
     todo_id = st.number_input("Enter Todo ID to delete",step=1)
     todo_id = int(todo_id)  # Convert to integer to remove decimal point
     if st.button("Delete Todo"):
         response = requests.delete(f"{BASE_URL}/delete_todo/{todo_id}")
         if response.status_code == 200:
             streamlit_js_eval(js_expressions="parent.window.location.reload()")
+    st.markdown("### ___________________________________________________")
             
 st.markdown("### ___________________________________________________")
 
 st.markdown("### Delete Todo")
 
+
+
+
 def update_todo():
+    """Edit todo"""
+    st.markdown("<div style='background-color: #ffc299; padding: 10px; border-radius: 10px;'>", unsafe_allow_html=True)
     st.markdown("### Edit Todo")
     todo_id = st.number_input("Enter Todo ID to Edit",step=1)
     message = st.text_input("Enter Todo",placeholder="Buy Milk")
-    status = st.text_input("Enter Status",placeholder="True/False")
-    # Example URL
+    status = st.radio("Enter Status", ('False','True'))
+    status = True if status == 'True' else False
 
-    # Example data to be sent in the request body
     data = {
         "id": todo_id,
         "message": message,
         "status": status
     }
+
     if st.button("Edit Todo"):
         url = f"http://127.0.0.1:8000/update_todo/{todo_id}"
-        streamlit_js_eval(js_expressions="parent.window.location.reload()")
-    # Send PUT request
         response = requests.put(url, json=data)
 
-        # Check the response
         if response.status_code == 200:
-                streamlit_js_eval(js_expressions="parent.window.location.reload()")
+            streamlit_js_eval(js_expressions="parent.window.location.reload()")
+            st.success("Todo Updated Successfully")
         else:
-            print(f"PUT request failed with status code: {response.status_code}")
+            st.error(f"PUT request failed with status code: {response.status_code}")
             print(response.text)  # Print the response content for debugging purposes
-
-
-
-# def edit_todo():
-#     todo_id = st.number_input("Enter Todo ID to Edit",step=1)
-#     todo_text = st.text_input("Enter Todo")
-#     todo_status = st.text_input("Enter Status")
-    
-#     todo_id = int(todo_id)  # Convert to integer to remove decimal point
-#     if st.button("Edit Todo"):
-#         response = requests.put(
-#             f"{BASE_URL}/update_todo/", json={"id": new_id, "message": todo_text, "status": todo_text})
-#         if response.status_code == 200:
-#             streamlit_js_eval(js_expressions="parent.window.location.reload()")
-
+    st.markdown("</div>", unsafe_allow_html=True)
+    st.markdown("### ___________________________________________________")
 
 
 def show_todo():
+    st.markdown("<div style='background-color: #0096FF	; padding: 10px; border-radius: 10px;'>", unsafe_allow_html=True)
+    st.markdown("## _______Here is yours Todos List________")
     table_content = ""
     for i, item in enumerate(app):
         table_content += f"<tr><td style='border:1px solid black; padding:10px;'>{item['id']}</td><td style='border:1px solid black; padding:10px;'>{item['message']}</td><td style='border:1px solid black; padding:10px;'>{item['status']}</td></tr>"
 
     st.markdown(
         f"<table style='background-color:#D4F1F4; border:1px solid black; border-collapse: collapse; width:100%;'><tr><th>ID</th><th>Todo Message</th><th>Status</th></tr>{table_content}</table>", unsafe_allow_html=True)
+
 
 # Run the Streamlit app
 if __name__ == "__main__":
