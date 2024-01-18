@@ -3,7 +3,6 @@
 This is a simple Appliction using Restful with FastAPI, PostgreSQL and SqlAlchemy ORM
 
 ### Watch Youtube Video:
-
 ![Watch the video](https://youtu.be/ZTmTD4mR4fw)
 
 
