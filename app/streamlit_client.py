@@ -108,7 +108,7 @@ def show_todo():
     # Set the title of the section
     st.markdown("## _______Here is yours Todos List________")
     table_content = ""  # Initialize the table content
-    response = requests.get("/")
+    response = requests.get("http://127.0.0.1:8000/")
     app = response.json()
     for i, item in enumerate(app):  # For each todo in the list
         # Add a row to the table content
